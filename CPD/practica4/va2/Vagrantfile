@@ -1,0 +1,27 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+
+    config.vm.define :centos do |centos_config|
+        centos_config.vm.box = "centos/8"
+        centos_config.vm.hostname = "centos.vm"
+        centos_config.vm.network "private_network" , ip:"192.168.56.11"
+        centos_config.vm.provider :virtualbox do |vb|
+        vb.name = "centos"
+            vb.customize ["modifyvm", :id, "--memory", "512"]
+            vb.customize ["modifyvm", :id, "--cpus", "1"]
+        end
+    end
+
+    config.vm.define :ubuntu do |ubuntu_config|
+        ubuntu_config.vm.box = "ubuntu/xenial64"
+        ubuntu_config.vm.hostname = "ubuntu.vm"
+        ubuntu_config.vm.network "private_network" , ip:"192.168.56.12"
+        ubuntu_config.vm.provider :virtualbox do |vb|
+            vb.name = "ubuntu"
+            vb.customize ["modifyvm", :id, "--memory", "512"]
+            vb.customize ["modifyvm", :id, "--cpus", "1"]
+        end
+    end
+end
